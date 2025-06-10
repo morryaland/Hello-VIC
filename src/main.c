@@ -1,42 +1,54 @@
 #include <c64.h>
+#include <stdio.h>
 #include <string.h>
 
 #define WIDTH 320
-#define VIC_BANK 0
+#define HEIGHT 200
 #define VIC_BITMAP_MODE 32
-
-#if VIC_BANK == 1
-#define VIC_MEMSETUP 128
-#define SCREEN 0xA000
-#define BITMAP 0x8000
-#else
+#define VIC_MULTICOLOR_MODE 16
 #define VIC_MEMSETUP 8 | 3 << 4
-#define SCREEN 0xCC00
-#define BITMAP 0xE000
-#endif
+#define SCREEN_RAM 0xCC00
+#define BITMAP_RAM 0xA000
+#define REAL_BITMAP_RAM 0xE000
 
-static inline void setpix(unsigned int x, unsigned int y)
+static void plot(unsigned int x, unsigned int y)
 {
-  ((char*)BITMAP)[y + WIDTH * (y / 8)] = 0b10000000 >> (x % 8);
+  ((unsigned char*)BITMAP_RAM)[(y / 8) * WIDTH + (y & 7) + (x / 8) * 8] |= 0b11000000 >> (x & 6);
 }
 
 int main(void)
 {
-  unsigned char i;
+  unsigned int x = 0;
+  int y = 64;
+  int d = 1 - 4 * y;
   VIC.bordercolor = COLOR_BLACK;
   VIC.bgcolor0 = COLOR_BLACK;
   VIC.ctrl1 |= VIC_BITMAP_MODE;
+  VIC.ctrl2 |= VIC_MULTICOLOR_MODE;
+  *(char*)0x0001 &= ~1;
   CIA2.pra &= ~3;
-#if VIC_BANK
-  CIA2.pra |= VIC_BANK; 
-#endif
   VIC.addr = VIC_MEMSETUP;
   /* set pallite */
-  memset((void*)SCREEN, 0x10, 1000);
-  /* clear bitmap */
-  memset((void*)BITMAP, 0, 8000);
-  for (i = 0; i < 200; ++i) {
-    setpix(i, i);
+  memset((void*)SCREEN_RAM, 0x00, 1000);
+  memset((void*)COLOR_RAM, 0x01, 1000);
+  /* clearbitmap */
+  memset((void*)BITMAP_RAM, 0, 8000);
+  while (x <= y) {
+    plot(x + WIDTH / 2, y + HEIGHT / 2);
+    plot(-x + WIDTH / 2, y + HEIGHT / 2);
+    plot(x + WIDTH / 2, -y + HEIGHT / 2);
+    plot(-x + WIDTH / 2, -y + HEIGHT / 2);
+    plot(y + WIDTH / 2, x + HEIGHT / 2);
+    plot(-y + WIDTH / 2, x + HEIGHT / 2);
+    plot(y + WIDTH / 2, -x + HEIGHT / 2);
+    plot(-y + WIDTH / 2, -x + HEIGHT / 2);
+    d += 8 * x + 4;
+    if (d>=0) {
+      y--;
+      d -= 8 * y;
+    }
+    x++;
   }
+  memcpy((void*)REAL_BITMAP_RAM, (void*)BITMAP_RAM, 8000);
   return 0;
 }

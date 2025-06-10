@@ -1,6 +1,5 @@
 # sdcc C64 Makefile
-TARGETS = bin/main.prg
-
+TARGET = bin/main.prg
 OBJECTS = obj/main.rel
 LIBS = c64.lib
 
@@ -24,7 +23,7 @@ SDAS=sdas6500
 SDAR=sdar
 MAKEBIN=makebin
 
-all: mkdir $(TARGETS)
+all: mkdir $(TARGET)
 
 mkdir:
 	mkdir -p bin obj
@@ -40,6 +39,9 @@ obj/%.rel: src/%.c
 
 obj/%.rel: src/%.s
 	$(SDAS) -jxlosp $@ $<
+
+run: $(TARGET)
+	x64sc $(TARGET)
 
 clean:
 	rm bin/* obj/*
