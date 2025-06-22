@@ -1,0 +1,86 @@
+;!FILE c64_cart_crt0.s
+XL3
+H B areas 2B global symbols
+M crt0
+S _main Ref000000
+S ___memcpy_PARM_2 Ref000000
+S ___memcpy_PARM_3 Ref000000
+S _memset_PARM_2 Ref000000
+S _memset_PARM_3 Ref000000
+S l_XINIT Ref000000
+S s_XINIT Ref000000
+S .__.ABS. Def000000
+S ___memcpy Ref000000
+S _memset Ref000000
+S s_DATA Ref000000
+S l_BSS Ref000000
+S s_BSS Ref000000
+A _CODE size 0 flags 0 addr 0
+A GSINIT size 4E flags 0 addr 0
+S c64_cart_crt0.40 Def000027
+S c64_cart_crt0.22 Def000009
+S c64_cart_crt0.50 Def00003A
+S c64_cart_crt0.41 Def000029
+S c64_cart_crt0.23 Def00000B
+S c64_cart_crt0.51 Def00003D
+S c64_cart_crt0.42 Def00002C
+S c64_cart_crt0.24 Def00000C
+S c64_cart_crt0.52 Def00003F
+S c64_cart_crt0.43 Def00002E
+S c64_cart_crt0.34 Def000018
+S c64_cart_crt0.25 Def00000F
+S c64_cart_crt0.53 Def000042
+S c64_cart_crt0.44 Def000030
+S c64_cart_crt0.35 Def00001A
+S c64_cart_crt0.26 Def000012
+S c64_cart_crt0.54 Def000044
+S c64_cart_crt0.36 Def00001D
+S c64_cart_crt0.27 Def000015
+S c64_cart_crt0.55 Def000046
+S c64_cart_crt0.37 Def00001F
+S c64_cart_crt0.47 Def000033
+S c64_cart_crt0.38 Def000022
+S c64_cart_crt0.48 Def000035
+S c64_cart_crt0.39 Def000024
+S c64_cart_crt0.58 Def000049
+S c64_cart_crt0.49 Def000038
+S c64_cart_crt0.59 Def00004B
+A GSFINAL size 6 flags 0 addr 0
+S c64_cart_crt0.63 Def000000
+S c64_cart_crt0.64 Def000003
+A CODE size 0 flags 0 addr 0
+A RODATA size 0 flags 0 addr 0
+A XINIT size 0 flags 0 addr 0
+A _DATA size 0 flags 0 addr 0
+A DATA size 0 flags 0 addr 0
+A BSS size 0 flags 0 addr 0
+A ZP size 0 flags 10 addr 0
+A OSEG size 0 flags 14 addr 0
+T 00 00 00 09 00 BC FE C3 C2 CD 38 30
+R 00 00 01 00 00 03 01 00
+T 09 00 00
+R 00 00 01 00
+T 09 00 00 A2 FF 9A 20 84 FF 20 87 FF 20 8A FF 20
+R 00 00 01 00
+T 16 00 00 81 FF
+R 00 00 01 00
+T 18 00 00
+R 00 00 01 00
+T 18 00 00 A9 00 00 00 8D 00 00 A9 00 00 00 8D
+R 00 00 01 00 0B 04 06 00 02 08 01 00 8B 0B 06 00
+T 20 00 00 01 00 A9 00 00 00 8D 00 00 A9
+R 00 00 01 00 02 03 01 00 0B 06 05 00 02 0A 02 00
+T 28 00 00 00 00 00 8D 01 00 A9 00 00 00 A2
+R 00 00 01 00 8B 03 05 00 02 07 02 00 0B 0A 0A 00
+T 2F 00 00 00 00 00 20 00 00 A9 00 8D 00 00 A9
+R 00 00 01 00 8B 03 0A 00 02 07 08 00 02 0C 03 00
+T 39 00 00 00 00 00 8D 00 00 A9 00 00 00 8D
+R 00 00 01 00 0B 03 0B 00 02 07 04 00 8B 0A 0B 00
+T 40 00 00 01 00 A9 00 00 00 A2 00 00 00 20
+R 00 00 01 00 02 03 04 00 0B 06 0C 00 8B 0A 0C 00
+T 47 00 00 00 00 A9 0E 20 D2 FF
+R 00 00 01 00 02 03 09 00
+T 00 00 00
+R 00 00 02 00
+T 00 00 00 20 00 00 4C 03 00
+R 00 00 02 00 02 04 00 00 00 07 02 00
