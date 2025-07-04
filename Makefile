@@ -23,10 +23,7 @@ SDAS=sdas6500
 SDAR=sdar
 MAKEBIN=makebin
 
-all: mkdir $(TARGET)
-
-mkdir:
-	mkdir -p bin obj
+all: $(TARGET)
 
 .PRECIOUS: bin/%.rel bin/%.ihx
 
