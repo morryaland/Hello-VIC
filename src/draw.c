@@ -5,6 +5,7 @@ static unsigned int g_cleanbuff[800];
 __zp static unsigned int g_clean_c;
 
 #define BA BITMAP_ADDR
+/* i in 0..255 */
 /* 0x20 + ((i & 0xF8) * 40) */
 const unsigned int ylookup[] = {
 BA+32, BA+352, BA+672, BA+992, BA+1312, BA+1632, BA+1952, BA+2272,
@@ -37,6 +38,8 @@ void line(char x1, char y1, char x2, char y2)
   }
   error = deltaX - deltaY;
   while (x1 != x2 || y1 != y2) {
+    /* plot pix and set addr to clean buff */
+    /* calc from elite code */
     *((char*)((g_cleanbuff[g_clean_c++] = ylookup[y1 >> 3] + (x1 & ~7)) + (y1 & 7))) |= 0b10000000 >> (x1 & 7);
     error2 = error << 1;
     if (error2 > -deltaY) {
@@ -62,8 +65,6 @@ void triangle(char x1, char y1, char x2, char y2, char x3, char y3)
 void clean(void)
 {
   while (g_clean_c--) {
-    unsigned int *addr = (unsigned int*)g_cleanbuff[g_clean_c];
-    *(addr++) = 0; *(addr++) = 0; *(addr++) = 0; *(addr++) = 0;
-    *(addr++) = 0; *(addr++) = 0; *(addr++) = 0; *addr = 0;
+    memset((unsigned int*)g_cleanbuff[g_clean_c], 0, 8);
   }
 }

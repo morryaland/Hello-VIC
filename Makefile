@@ -4,14 +4,14 @@ OBJECTS = obj/main.rel obj/draw.rel
 LIBS = c64.lib
 
 # SDK location
-SDKDIR=.
+SDKDIR = .
 
 SDCCTARGET = -mmos6502 -D__C64__
-SDCCOPT = --max-allocs-per-node 25000 --opt-code-speed
-SDCCDEBUG = --fverbose-asm --i-code-in-asm
+SDCCOPT = --max-allocs-per-node 25000 --opt-code-speed --allow-unsafe-read --use-non-free
+SDCCDEBUG = --i-code-in-asm
 SDKINC = -I $(SDKDIR)/include
 
-CFLAGS = $(SDCCTARGET) $(SDCCOPT) $(SDKINC) -DLINE_MODE=1
+CFLAGS = $(SDCCTARGET) $(SDCCOPT) $(SDCCDEBUG) $(SDKINC) -DLINE_MODE=1 --less-pedantic
 LDFLAGS = -L $(SDKDIR)/lib -mmos6502 --no-std-crt0
 
 CRTPRG = $(SDKDIR)/lib/c64_prg_crt0.rel

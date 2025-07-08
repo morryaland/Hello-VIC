@@ -15,7 +15,6 @@ int main(void)
 #if !LINE_MODE
   VIC.ctrl2 |= VIC_MULTICOLOR_MODE;
 #endif
-  *(char*)0x0001 &= ~1;
   CIA2.pra &= ~1;
   VIC.addr = VIC_MEMSETUP;
   /* set pallite */
