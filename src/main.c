@@ -20,10 +20,11 @@ int main(void)
   VIC.addr = VIC_MEMSETUP;
   /* set pallite */
   memset(SCREEN_RAM, 0x10, 1000);
-  while (1) {
   /* clearbitmap */
   memset(BITMAP_RAM, 0, 8000);
-  triangle(196, 63, 48, 7, 176, 168);
+  while (1) {
+    clean();
+    triangle(196, 63, 48, 7, 176, 168);
   }
   return 0;
 }
