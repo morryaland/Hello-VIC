@@ -21,9 +21,9 @@ int main(void)
   memset(SCREEN_RAM, 0x10, 1000);
   /* clearbitmap */
   memset(BITMAP_RAM, 0, 8000);
-  while (1) {
-    clean();
-    triangle(196, 63, 48, 7, 176, 168);
-  }
+  triangle(0, 0, 128, 199, 255, 0);
+  triangle(0, 199, 128, 0, 255, 199);
+  triangle(0, 0, 255, 100, 0, 199);
+  triangle(0, 100, 255, 0, 255, 199);
   return 0;
 }
